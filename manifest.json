@@ -1,0 +1,27 @@
+{
+  "manifest_version": 2,
+
+  "name": "Snooock",
+  "description": "Because you don't like factorial",
+  "version": "1.0",
+  "author": "Snooze~",
+
+  "icons": {
+    "48": "index.png"
+  },
+  "browser_action": {
+    "default_title": "Snooock",
+    "default_popup": "ui/dashboard.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.factorialhr.es/*"],
+      "js": ["model/factorial.js","model/main.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "permissions": [
+    "activeTab"
+  ]
+}
+

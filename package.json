@@ -1,0 +1,19 @@
+{
+  "name": "factorial-extension",
+  "version": "1.0.0",
+  "description": "Clocking but efforless",
+  "main": "ui/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/snooze6/factorial-extension.git"
+  },
+  "author": "snooze",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/snooze6/factorial-extension/issues"
+  },
+  "homepage": "https://github.com/snooze6/factorial-extension#readme"
+}
