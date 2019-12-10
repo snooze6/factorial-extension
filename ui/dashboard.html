@@ -4,8 +4,17 @@
     <link rel="stylesheet" type="text/css" href="vendor/materialize/css/materialize.min.css">
     <script src="vendor/materialize/js/materialize.min.js"></script>
     <script src="vendor/angujarl.min.js"></script>
+    <script src="vendor/browser-polyfill.min.js"></script>
     <script src="app.js"></script>
 </head>
+
+<style>
+    .small{
+        border: 1px solid red;
+        width: 45%;
+        background-color: orange;
+    }
+</style>
 
 <!-- Oh, how I want a transparent background -->
 <body ng-app="snooock" ng-controller="main" style="width: 400px">
@@ -16,23 +25,43 @@
                     <img src="images/sample-1.jpg">
                     <span class="card-title">Snooock</span>
                 </div>
-                <div class="card-content" style="padding: 0">
-                    <ul ng-if="selected==null" class="collection with-header" style="margin: 0">
-                        <li
-                                ng-click="alert(1)"
-                                class="collection-item">Monday</li>
-                        <li class="collection-item">Tuesday</li>
-                        <li class="collection-item">Wednesday</li>
-                        <li class="collection-item">Thursday</li>
-                        <li class="collection-item">Friday</li>
+
+                <div class="card-tabs">
+                    <ul class="tabs tabs-fixed-width">
+                        <li ng-repeat="tab in tabs" class="tab">
+                            <a ng-click="select_tab(tab)" ng-class="{'active': tab==selected_tab}">{{tab}}</a>
+                        </li>
                     </ul>
-                    <div ng-if="selected!=null" class="collection">
-                        <a class="collection-item">Lel</a>
+                </div>
+
+                <div ng-show="selected_tab == 'shifts'">
+                    <div class="card-content" style="padding: 0">
+                        <ul class="collapsible" style="margin: 0">
+                            <li ng-repeat="day in days" ng-click="select_day(day)">
+                                <div class="collapsible-header">{{day}}</div>
+                                <div class="collapsible-body">
+                                    <div ng-repeat="hour in preferences[day]">
+                                        <input ng-model="hour['ini']" type="text" class="timepicker center-align" style="width: 40%">
+                                        _
+                                        <input ng-model="hour['end']" type="text" class="timepicker center-align" style="width: 40%">
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-action center-align">
+                        <a ng-click="clock_today()">Clock today</a>
+                        <a ng-click="clock_week()">Clock this week</a>
+                        <a ng-click="save_shifts()">Save</a>
                     </div>
                 </div>
-                <div class="card-action center-align">
-                    <a href="#">Clock today</a>
-                    <a href="#">Clock this week</a>
+
+                <div ng-show="selected_tab == 'configuration'">
+                    <p>Configuration</p>
+                </div>
+
+                <div ng-show="selected_tab == 'about'">
+                    <p>About</p>
                 </div>
             </div>
         </div>

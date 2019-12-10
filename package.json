@@ -15,5 +15,6 @@
   "bugs": {
     "url": "https://github.com/snooze6/factorial-extension/issues"
   },
-  "homepage": "https://github.com/snooze6/factorial-extension#readme"
+  "homepage": "https://github.com/snooze6/factorial-extension#readme",
+  "dependencies": {}
 }
