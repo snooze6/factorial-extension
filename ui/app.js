@@ -1,4 +1,8 @@
+var scope;
+
 angular.module('snooock', []).controller('main', function($scope) {
+    scope = $scope;
+
     $scope.shifts = {
       monday : [{ini: "09:00", end: "14:00"}, {ini: "15:00", end: "18:00"}],
       tuesday : [{ini: "09:00", end: "14:00"}, {ini: "15:00", end: "18:00"}],
@@ -66,14 +70,14 @@ angular.module('snooock', []).controller('main', function($scope) {
     function setup() {
         browser.storage.local.get().then(
             (result) => {
-                alert(result.shifts);
+                $scope.shifts = result.shifts;
             },
             (error) => {
                 alert(error);
             }
         )
     }
-    // setup();
+    setup();
 
 });
 

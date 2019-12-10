@@ -3,6 +3,8 @@ Clocking but effortless
 
 ## Testing
 
+If you change the manifest.json remember to reload the extension.
+
 ### Chrome
 
 ### Firefox

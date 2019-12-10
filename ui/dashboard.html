@@ -40,7 +40,7 @@
                             <li ng-repeat="day in days" ng-click="select_day(day)">
                                 <div class="collapsible-header">{{day}}</div>
                                 <div class="collapsible-body">
-                                    <div ng-repeat="hour in preferences[day]">
+                                    <div ng-repeat="hour in shifts[day]">
                                         <input ng-model="hour['ini']" type="text" class="timepicker center-align" style="width: 40%">
                                         _
                                         <input ng-model="hour['end']" type="text" class="timepicker center-align" style="width: 40%">
