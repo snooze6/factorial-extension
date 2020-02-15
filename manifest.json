@@ -9,17 +9,20 @@
   "icons": {
     "48": "index.png"
   },
+
   "browser_action": {
     "default_title": "Snooock",
     "default_popup": "ui/dashboard.html"
   },
+
   "content_scripts": [
     {
       "matches": ["*://*.factorialhr.es/*"],
-      "js": ["model/factorial.js","model/main.js"],
+      "js": ["ui/model/factorial.js","ui/model/main.js"],
       "run_at": "document_end"
     }
   ],
+
   "permissions": [
     "activeTab",
     "notifications",
