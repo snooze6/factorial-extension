@@ -17,7 +17,7 @@
 
   "content_scripts": [
     {
-      "matches": ["*://*.factorialhr.es/*"],
+      "matches": ["*://app.factorialhr.com/*"],
       "js": ["ui/model/factorial.js","ui/model/main.js"],
       "run_at": "document_end"
     }
