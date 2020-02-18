@@ -70,7 +70,11 @@ angular.module('snooock', []).controller('main', function($scope) {
     function setup() {
         browser.storage.local.get().then(
             (result) => {
-                $scope.shifts = result.shifts;
+                console.log($scope.shifts);
+                if (Object.keys(result).length !== 0) {
+                    $scope.shifts = result.shifts;
+                }
+                console.log($scope.shifts);
             },
             (error) => {
                 alert(error);
