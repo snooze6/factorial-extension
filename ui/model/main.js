@@ -8,18 +8,42 @@ if (debug) {
 console.log('[+] - Extension loaded');
 
 {
-    let iframe = document.createElement("iframe");
-// iframe.src = 'data:text/html;charset=utf-8,' + html;
-    iframe.src = browser.runtime.getURL("ui/test.html");
-    iframe.style.position = "fixed";
-    iframe.style.bottom = 0;
-    iframe.style.right = "120px";
-// iframe.style.width = "400px";
-// iframe.style.height = "400px";
-    iframe.style.overflow = "scroll";
-    iframe.style.zIndex = 1337;
-// iframe.style.minHeight = 0; // What a headache
-    iframe.style.backgroundColor = "transparent";
+    let html = `
+        <style>
+            .speech-bubble {
+                position: relative;
+                background-color: #638ddf;
+                border-radius: .4em;
+            }
 
-    document.body.appendChild(iframe);
+            .speech-bubble:after {
+                content: '';
+                position: absolute;
+                right: 0;
+                top: 70%;
+                width: 0;
+                height: 0;
+                border: 20px solid transparent;
+                border-left-color: #638ddf;
+                border-right: 0;
+                margin-top: -20px;
+                margin-right: -20px;
+            }
+        </style>
+        <div id="snz_button" style="z-index:1337; position: fixed; bottom: 120px; right: 30px">
+            <button
+                    onclick="document.getElementById('snz_div').style.display = (document.getElementById('snz_div').style.display === 'none') ? 'block' : 'none';"
+                    style="background-image: linear-gradient(-60deg,#7c73e6,#73ace6);}; border: none; color: white; padding: 20px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; border-radius: 50%"
+            >
+                &#9202;
+            </button>
+        </div>
+        <div id="snz_div" class="speech-bubble" style="display: block; z-index:1337;position: fixed; width: 420px; height: 420px; bottom: 30px; right: 120px">
+            <iframe id="snz_iframe" src="{{URL}}" style="width: 100%; height: 100%"></iframe>
+        </div>
+    `;
+    html = html.replace("{{URL}}",browser.runtime.getURL("ui/dashboard.html"));
+    let div = document.createElement("div");
+    div.innerHTML = html;
+    document.body.appendChild(div);
 }

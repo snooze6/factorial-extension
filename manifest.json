@@ -17,8 +17,8 @@
 
   "content_scripts": [
     {
-      "matches": ["*://app.factorialhr.com/*"],
-      "js": ["ui/model/factorial.js","ui/model/main.js"],
+      "matches": ["*://app.factorialhr.com/*","*://*.factorialhr.es/*"],
+      "js": ["ui/vendor/browser-polyfill.min.js","ui/model/main.js"],
       "run_at": "document_end"
     }
   ],
