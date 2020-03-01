@@ -39,7 +39,11 @@ console.log('[+] - Extension loaded');
             </button>
         </div>
         <div id="snz_div" class="speech-bubble" style="display: none; z-index:1337;position: fixed; width: 420px; height: 420px; bottom: 30px; right: 120px">
-            <iframe id="snz_iframe" sandbox="allow-scripts allow-same-origin allow-modals" src="{{URL}}" style="width: 100%; height: 100%"></iframe>
+            <iframe id="snz_iframe" 
+                sandbox="allow-scripts allow-same-origin allow-modals allow-top-navigation" 
+                src="{{URL}}" 
+                style="width: 100%; height: 100%">
+            </iframe>
         </div>
     `;
     html = html.replace("{{URL}}",browser.runtime.getURL("ui/dashboard.html"));
@@ -49,4 +53,4 @@ console.log('[+] - Extension loaded');
     document.body.appendChild(div);
 }
 
-console.log('[+] - Frame injected');
+console.log('[+] - Frame injected from '+browser.runtime.getURL("ui/dashboard.html"));
