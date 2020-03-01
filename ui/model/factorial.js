@@ -1,4 +1,9 @@
 class factorial {
+    // async fetch(url, options){
+    //     console.log('[+] - Fetching '+url);
+    //     return
+    // }
+
     constructor(){
         this.url_base = atob("aHR0cHM6Ly9hcGkuZmFjdG9yaWFsaHIuY29t");
         this.url_add  = this.url_base + "/attendance/shifts";

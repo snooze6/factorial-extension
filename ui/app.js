@@ -2,6 +2,7 @@ var scope;
 
 angular.module('snooock', []).controller('main', function($scope) {
     scope = $scope;
+    $scope.factorial = null;
 
     $scope.shifts = {
       monday : [{ini: "09:00", end: "14:00"}, {ini: "15:00", end: "18:00"}],
@@ -63,26 +64,30 @@ angular.module('snooock', []).controller('main', function($scope) {
 
     $scope.save_shifts = function () {
         if ($scope.validate()){
-            browser.storage.local.set({shifts: $scope.shifts})
+            browser.storage.local.set({shifts: $scope.shifts});
+            alert('Preferences saved')
         }
     };
 
-    function setup() {
+    async function setup() {
+        console.log('[+] - Starting extension');
         browser.storage.local.get().then(
             (result) => {
-                console.log($scope.shifts);
                 if (Object.keys(result).length !== 0) {
                     $scope.shifts = result.shifts;
+                    console.log('[+] - Loaded shifts from preferencies');
                 }
-                console.log($scope.shifts);
             },
             (error) => {
                 alert(error);
             }
-        )
+        );
+        $scope.factorial = new factorial();
+        console.log('[+] - Loaded factorial core');
+        await $scope.factorial.setup();
     }
-    setup();
 
+    setup();
 });
 
 window.onload = function () {

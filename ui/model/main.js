@@ -38,12 +38,15 @@ console.log('[+] - Extension loaded');
                 &#9202;
             </button>
         </div>
-        <div id="snz_div" class="speech-bubble" style="display: block; z-index:1337;position: fixed; width: 420px; height: 420px; bottom: 30px; right: 120px">
-            <iframe id="snz_iframe" src="{{URL}}" style="width: 100%; height: 100%"></iframe>
+        <div id="snz_div" class="speech-bubble" style="display: none; z-index:1337;position: fixed; width: 420px; height: 420px; bottom: 30px; right: 120px">
+            <iframe id="snz_iframe" sandbox="allow-scripts allow-same-origin allow-modals" src="{{URL}}" style="width: 100%; height: 100%"></iframe>
         </div>
     `;
     html = html.replace("{{URL}}",browser.runtime.getURL("ui/dashboard.html"));
+
     let div = document.createElement("div");
     div.innerHTML = html;
     document.body.appendChild(div);
 }
+
+console.log('[+] - Frame injected');
