@@ -31,7 +31,8 @@
     "activeTab",
     "notifications",
     "storage",
-    "*://app.factorialhr.com/*"
+    "*://app.factorialhr.com/*",
+    "*://api.factorialhr.com/*"
   ],
 
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"

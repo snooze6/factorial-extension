@@ -83,9 +83,9 @@ angular.module('snooock', []).controller('main', function($scope) {
             }
         );
 
-        // $scope.factorial = new factorial();
-        // console.log('[+] - Loaded factorial core');
-        // await $scope.factorial.setup();
+        $scope.factorial = new factorial();
+        console.log('[+] - Loaded factorial core');
+        await $scope.factorial.setup();
     }
 
     setup();
