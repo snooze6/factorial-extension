@@ -45,6 +45,13 @@
                                     <input ng-model="hour['ini']" type="text" class="timepicker center-align" style="width: 40%">
                                     _
                                     <input ng-model="hour['end']" type="text" class="timepicker center-align" style="width: 40%">
+                                    -
+                                    <a class="waves-effect waves-light btn" ng-click="del_shift(day,hour['ini'],hour['end'])">&#9003;</a>
+                                </div>
+                                <div>
+                                    <center>
+                                        <a class="waves-effect waves-light btn" ng-click="add_shift(day)">Add shift</a>
+                                    </center>
                                 </div>
                             </div>
                         </li>

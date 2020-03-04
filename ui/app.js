@@ -24,6 +24,7 @@ angular.module('snooock', []).controller('main', function($scope) {
         $scope.selected_tab = tab;
     };
 
+    // Implement harsher controls and more verbosity
     $scope.validate = function(){
         for (let i in $scope.shifts){
             const shifts = $scope.shifts[i];
@@ -34,11 +35,39 @@ angular.module('snooock', []).controller('main', function($scope) {
         return true;
     };
 
-    $scope.clock = function (ini, end) {
+    $scope.clock = async function (ini, end) {
         if ($scope.validate()) {
-            alert('Clocking from [' + ini + '] to [' + end + ']')
+            alert('Clocking from [' + ini + '] to [' + end + ']');
+
+            while (ini <= end){
+                let day = null;
+                switch (ini.getDay()) {
+                    case 1: day='monday'; break;
+                    case 2: day='tuesday'; break;
+                    case 3: day='wednesday'; break;
+                    case 4: day='thursday'; break;
+                    case 5: day='friday'; break;
+                }
+                if (day) {
+                    console.log('Clocking ' + day);
+
+                    let shifts = $scope.shifts[day];
+                    for (let s of shifts) {
+                        ini.setHours(parseInt(s.ini.split(':')[0])+1, parseInt(s.ini.split(':')[1])+1);
+                        console.log("ini: " + ini);
+                        await $scope.factorial.clock_in(ini);
+                        ini.setHours(parseInt(s.end.split(':')[0])+1, parseInt(s.end.split(':')[1])+1);
+                        console.log("end: " + ini);
+                        await $scope.factorial.clock_out(ini);
+                    }
+                }
+
+                ini.setDate(ini.getDate()+1);
+            }
+
+            // browser.tabs.reload();
         } else {
-            alert('Please, ensure all time ranges are correct; I mean, they shold start BEFORE they finish')
+            alert('Please, ensure all time ranges are correct; I mean, they should start BEFORE they finish')
         }
     };
 
@@ -69,6 +98,22 @@ angular.module('snooock', []).controller('main', function($scope) {
         }
     };
 
+    $scope.add_shift = function(day){
+        $scope.shifts[day].push({ini: "00:00", end: "23:59"});
+        // Stupid trick
+        setTimeout(window.reload_timepickers,500);
+    };
+
+    $scope.del_shift = function(day,ini,end){
+        for (let i = 0; i<$scope.shifts[day].length; i++){
+            const j = $scope.shifts[day][i];
+            if ((j.ini === ini )&&(j.end === end)){
+                $scope.shifts[day] = $scope.shifts[day].filter((value, index, arr)=>{return index!==i});
+                break
+            }
+        }
+    };
+
     async function setup() {
         console.log('[+] - Starting extension');
         browser.storage.local.get().then(
@@ -91,15 +136,19 @@ angular.module('snooock', []).controller('main', function($scope) {
     setup();
 });
 
+window.reload_timepickers = function(){
+    const elems = document.querySelectorAll('.timepicker');
+    const options = {twelveHour: false, autoClose: true};
+    const instances = M.Timepicker.init(elems, options);
+};
+
+window.reload_collapsibles = function(){
+    const elems = document.querySelectorAll('.collapsible');
+    const options = {};
+    const instances = M.Collapsible.init(elems, options);
+};
+
 window.onload = function () {
-    {
-        const elems = document.querySelectorAll('.collapsible');
-        const options = {};
-        const instances = M.Collapsible.init(elems, options);
-    }
-    {
-        const elems = document.querySelectorAll('.timepicker');
-        const options = {twelveHour: false, autoClose: true};
-        const instances = M.Timepicker.init(elems, options);
-    }
+    window.reload_collapsibles();
+    window.reload_timepickers()
 };

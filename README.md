@@ -1,5 +1,8 @@
 # factorial-extension
+
 Clocking but effortless
+
+## Introduction and motives
 
 ## Testing
 
@@ -13,6 +16,4 @@ Abre "about:debugging" en Firefox, da click en "Cargar complemento temporal" y s
 
 ## To-do:
 
-1. Actually work
-2. Hide icon and work injecting iframe
-3. Add validation to time picker
+1. Add validations and improve UX
