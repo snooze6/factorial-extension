@@ -4,7 +4,8 @@
   "description": "Clocking but efforless",
   "main": "ui/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node_modules/.bin/web-ext build -s ."
   },
   "repository": {
     "type": "git",
