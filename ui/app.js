@@ -53,10 +53,10 @@ angular.module('snooock', []).controller('main', function($scope) {
 
                     let shifts = $scope.shifts[day];
                     for (let s of shifts) {
-                        ini.setHours(parseInt(s.ini.split(':')[0])+1, parseInt(s.ini.split(':')[1])+1);
+                        ini.setHours(parseInt(s.ini.split(':')[0]), parseInt(s.ini.split(':')[1]));
                         console.log("ini: " + ini);
                         await $scope.factorial.clock_in(ini);
-                        ini.setHours(parseInt(s.end.split(':')[0])+1, parseInt(s.end.split(':')[1])+1);
+                        ini.setHours(parseInt(s.end.split(':')[0]), parseInt(s.end.split(':')[1]));
                         console.log("end: " + ini);
                         await $scope.factorial.clock_out(ini);
                     }
@@ -87,6 +87,16 @@ angular.module('snooock', []).controller('main', function($scope) {
         ini.setDate(ini.getDate() - (ini.getDay() + 6) % 7);
         ini.setHours(0,0,0,0);
         end.setDate(ini.getDate() + 6);
+        end.setHours(23,59,59,59);
+        $scope.clock(ini, end);
+    };
+
+    $scope.clock_month = function () {
+        // Set the date intervals
+        d = new Date();
+        ini = new Date(d.getFullYear(), d.getMonth(), 1);
+        end = new Date(d.getFullYear(), d.getMonth()+1, 0);
+        ini.setHours(0,0,0,0);
         end.setHours(23,59,59,59);
         $scope.clock(ini, end);
     };

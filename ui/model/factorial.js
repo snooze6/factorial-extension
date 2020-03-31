@@ -76,11 +76,29 @@ class factorial {
         console.log('[+] - Got shifts & periods')
         return {shifts: j1, periods: j2}
     }
+
+    toISOLocal(d) {
+        var z  = n =>  ('0' + n).slice(-2);
+        var zz = n => ('00' + n).slice(-3);
+        var off = d.getTimezoneOffset();
+        var sign = off < 0? '+' : '-';
+        off = Math.abs(off);
+
+        return d.getFullYear() + '-'
+            + z(d.getMonth()+1) + '-' +
+            z(d.getDate()) + 'T' +
+            z(d.getHours()) + ':'  +
+            z(d.getMinutes()) + ':' +
+            z(d.getSeconds()) + '.' +
+            zz(d.getMilliseconds()) +
+            sign + z(off/60|0) + ':' + z(off%60);
+    }
+
     async clock_in(date){
         await fetch(this.url_clock_in, {
             "credentials": "include",
             "headers": this.headers,
-            "body": "{\"now\":\""+(date.toISOString().split('.')[0])+"\"}",
+            "body": "{\"now\":\""+(this.toISOLocal(date).split('.')[0])+"\"}",
             "method": "POST",
             "mode": "cors"
         });
@@ -89,7 +107,7 @@ class factorial {
         await fetch(this.url_clock_out, {
             "credentials": "include",
             "headers": this.headers,
-            "body": "{\"now\":\""+(date.toISOString().split('.')[0])+"\"}",
+            "body": "{\"now\":\""+(this.toISOLocal(date).split('.')[0])+"\"}",
             "method": "POST",
             "mode": "cors"
         });
@@ -122,7 +140,7 @@ class factorial {
             date_ini.setDate(date_ini.getDate()+1);
             let datestring = "";
             for (let i of periods){
-                datestring += i.toISOString()+',';
+                datestring += this.toISOLocal(i)+',';
             }
             datestring = datestring.slice(0,-1);
             if (date_ini <= date_end)

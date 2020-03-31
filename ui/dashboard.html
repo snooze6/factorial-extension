@@ -42,9 +42,9 @@
                             <div class="collapsible-header">{{day}}</div>
                             <div class="collapsible-body">
                                 <div ng-repeat="hour in shifts[day]">
-                                    <input ng-model="hour['ini']" type="text" class="timepicker center-align" style="width: 40%">
+                                    <input ng-model="hour['ini']" type="text" class="timepicker center-align" style="width: 35%">
                                     _
-                                    <input ng-model="hour['end']" type="text" class="timepicker center-align" style="width: 40%">
+                                    <input ng-model="hour['end']" type="text" class="timepicker center-align" style="width: 35%">
                                     -
                                     <a class="waves-effect waves-light btn" ng-click="del_shift(day,hour['ini'],hour['end'])">&#9003;</a>
                                 </div>
@@ -60,6 +60,9 @@
                 <div class="card-action center-align" style="padding-top: 24px">
                     <a class="waves-effect waves-light btn" ng-click="clock_today()">&#9202; Today</a>
                     <a class="waves-effect waves-light btn" ng-click="clock_week()">&#9202; Week</a>
+                    <a class="waves-effect waves-light btn" ng-click="clock_month()">&#9202; Month</a>
+                </div>
+                <div class="card-action center-align" style="padding-top: 24px">
                     <a class="waves-effect waves-light btn" ng-click="save_shifts()">&#128190; Prefs</a>
                 </div>
             </div>
